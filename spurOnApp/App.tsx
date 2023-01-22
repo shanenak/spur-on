@@ -1,29 +1,25 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {
+  SafeAreaView,
   StyleSheet,
-  View,
 } from 'react-native';
-import { Provider } from "react-native-paper";
+import SignInScreen from './src/screens/SignInScreen';
+import SignUpScreen from './src/screens/SignUpScreen';
 
-import { theme } from './src/styles/theme';
-import Login from './src/components/Login';
-
-function App(): JSX.Element {
+const App: FC = () => {
 
   return (
-    <Provider theme={theme}>
-      <View style={styles.container}>
-        <Login/>
-      </View>
-    </Provider>
+    <SafeAreaView style={styles.root}>
+      <SignUpScreen/>
+    </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  }
-});
-
 export default App;
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    backgroundColor: "#F9FBFC"
+  }
+})
