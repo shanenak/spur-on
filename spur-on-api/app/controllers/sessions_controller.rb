@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
     def create
         @user = User.find_by(username: session_params[:username])
-        
+
         if @user && @user.authenticate(session_params[:password])
             login!
             render json: {
@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
             user: @user
             }
         else
-            render json: { 
+            render json: {
             status: 401,
             errors: ['no such user, please try again']
             }

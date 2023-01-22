@@ -18,7 +18,7 @@ import {
 } from 'react-native';
 
 import {
-  Colors,
+  Colors
 } from 'react-native/Libraries/NewAppScreen';
 
 import Login from './src/components/Login';
