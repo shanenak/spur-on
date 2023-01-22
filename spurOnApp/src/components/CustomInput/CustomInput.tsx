@@ -2,7 +2,8 @@ import React, { FC } from 'react';
 import {
   View,
   StyleSheet,
-  TextInput
+  TextInput,
+  Keyboard
 } from 'react-native';
 
 type CustomInputProps = {
@@ -25,7 +26,9 @@ const CustomInput: FC<CustomInputProps> = ({
         placeholder={placeholder}
         value={value}
         onChangeText={setValue}
-        secureTextEntry={secureTextEntry}/>
+        secureTextEntry={secureTextEntry}
+        blurOnSubmit={false}
+        onSubmitEditing={()=> Keyboard.dismiss()}/>
     </View>
   )
 }
