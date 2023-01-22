@@ -3,14 +3,13 @@ import {
   SafeAreaView,
   StyleSheet,
 } from 'react-native';
-import SignInScreen from './src/screens/SignInScreen';
-import SignUpScreen from './src/screens/SignUpScreen';
+import Navigation from './src/navigation';
 
 const App: FC = () => {
 
   return (
     <SafeAreaView style={styles.root}>
-      <SignUpScreen/>
+      <Navigation/>
     </SafeAreaView>
   );
 }
