@@ -8,7 +8,7 @@ import {
   TextInput,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {useForm, Controller} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 import Logo from '../../../assets/images/Logo_1.png';
 
 import CustomInput from '../../components/CustomInput';
@@ -48,7 +48,11 @@ const SignInScreen: FC = () => {
           required: 'Username is required',
           minLength: {
             value: 3,
-            message: 'Password must be minimum 3 character long',
+            message: 'Username must be min 3 character long',
+          },
+          maxLength: {
+            value: 24,
+            message: 'Username must be max 24 character long',
           },
         }}
       />
@@ -61,7 +65,11 @@ const SignInScreen: FC = () => {
           required: 'Password is required',
           minLength: {
             value: 5,
-            message: 'Password must be minimum 5 character long',
+            message: 'Password must be min 5 character long',
+          },
+          maxLength: {
+            value: 24,
+            message: 'Password must be max 24 character long',
           },
         }}
       />
