@@ -7,5 +7,5 @@ import {
 
 function Login(): JSX.Element {
   return <View><Text>Hello</Text></View>
-};
+}
 export default Login;
