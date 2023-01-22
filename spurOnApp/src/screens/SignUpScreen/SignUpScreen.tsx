@@ -18,6 +18,18 @@ const SignUpScreen: FC = () => {
     console.warn("Signed Up");
   }
 
+  const onTermsOfUsePressed = () => {
+    console.warn("Terms of Use");
+  }
+
+  const onPrivacyPolicyPressed = () => {
+    console.warn("Privacy Policy");
+  }
+
+  const onSignInPress = () => {
+    console.warn("Sign In")
+  }
+
   return (
     <View style={styles.root}>
       <Text style={styles.title}>Create an account</Text>
@@ -47,8 +59,14 @@ const SignUpScreen: FC = () => {
 
       <Text style={styles.text}>
         By registering, you confirm that you accept our{' '}
-        <Text style={styles.link}>Terms of Use</Text> and{' '}
-        <Text style={styles.link}>Privary Policy.</Text></Text>
+        <Text style={styles.link} onPress={onTermsOfUsePressed}>Terms of Use</Text> and{' '}
+        <Text style={styles.link} onPress={onPrivacyPolicyPressed}>Privary Policy.</Text>
+      </Text>
+
+      <CustomButton
+        text="Have an account? Sign in"
+        onPress={onSignInPress}
+        type='TERTIARY'/>
     </View>
   )
 }
