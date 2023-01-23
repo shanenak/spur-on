@@ -2,6 +2,7 @@ import React, {FC, useState} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useForm} from 'react-hook-form';
+import axios from 'axios';
 
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
@@ -22,7 +23,17 @@ const SignUpScreen: FC = () => {
 
   console.log(errors);
 
-  const onSignUpPressed = () => {
+  const onSignUpPressed = (user: any) => {
+    axios
+      .post('http://localhost:3001/users', {user}, {withCredentials: true})
+      .then(response => {
+        if (response.data.status === 'created') {
+          navigation.navigate('SignIn');
+        } else {
+          console.log('api errors: ', response.data.errors);
+        }
+      })
+      .catch(error => console.log('api errors:', error));
     console.warn('Signed Up');
   };
 
@@ -57,7 +68,7 @@ const SignUpScreen: FC = () => {
           },
         }}
       />
-      <CustomInput
+      {/* <CustomInput
         name="email"
         placeholder="Email"
         control={control}
@@ -68,7 +79,7 @@ const SignUpScreen: FC = () => {
             message: 'Must enter a valid email address',
           },
         }}
-      />
+      /> */}
       <CustomInput
         name="password"
         placeholder="Password"

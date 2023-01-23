@@ -1,15 +1,17 @@
-import React, { FC } from 'react';
-import {
-  View,
-  Text
-} from 'react-native';
+import React, {FC} from 'react';
+import {View, Text} from 'react-native';
+import {TUser} from '../../types/types';
 
-const HomeScreen: FC = () => {
+type HomeScreenProps = {
+  user: TUser;
+};
+
+const HomeScreen: FC<HomeScreenProps> = ({user}) => {
   return (
     <View>
-      <Text>Home</Text>
+      <Text>Home! User: {user.username}</Text>
     </View>
-  )
-}
+  );
+};
 
 export default HomeScreen;

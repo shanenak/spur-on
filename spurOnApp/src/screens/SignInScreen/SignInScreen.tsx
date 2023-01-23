@@ -9,12 +9,17 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useForm} from 'react-hook-form';
+import axios from 'axios';
 import Logo from '../../../assets/images/Logo_1.png';
 
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 
-const SignInScreen: FC = () => {
+type SignInScreenProps = {
+  setUser: any;
+};
+
+const SignInScreen: FC<SignInScreenProps> = ({setUser}) => {
   const {height} = useWindowDimensions();
   const navigation = useNavigation();
 
@@ -26,11 +31,20 @@ const SignInScreen: FC = () => {
 
   console.log(errors);
 
-  const onSignInPressed = (data: any) => {
-    console.log(data);
-    // Validate
-    // navigation.navigate('Home');
+  const onSignInPressed = (user: any) => {
+    axios
+      .post('http://localhost:3001/login', {user}, {withCredentials: true})
+      .then(response => {
+        if (response.data.logged_in) {
+          setUser({username: response.data.username});
+        } else {
+          console.log('api errors:', response.data.errors);
+        }
+      })
+      .catch(error => console.log('api errors:', error));
+    console.log('Sign in:', user);
   };
+
   const onForgotPasswordPressed = () => {
     console.warn('Forgot Password');
   };
