@@ -1,15 +1,10 @@
 import React, {FC, useState} from 'react';
-import {
-  Text,
-  View,
-  Image,
-  StyleSheet,
-  useWindowDimensions,
-  TextInput,
-} from 'react-native';
+import {View, Image, StyleSheet, useWindowDimensions, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useForm} from 'react-hook-form';
+import axios from 'axios';
 import Logo from '../../../assets/images/Logo_1.png';
+import {useCurrentUser} from '../../context/UserContext';
 
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
@@ -17,6 +12,8 @@ import CustomButton from '../../components/CustomButton';
 const SignInScreen: FC = () => {
   const {height} = useWindowDimensions();
   const navigation = useNavigation();
+  const {username, setUsername} = useCurrentUser();
+  const [loginError, setLoginError] = useState('');
 
   const {
     control,
@@ -26,11 +23,23 @@ const SignInScreen: FC = () => {
 
   console.log(errors);
 
-  const onSignInPressed = (data: any) => {
-    console.log(data);
-    // Validate
-    // navigation.navigate('Home');
+  const onSignInPressed = (user: any) => {
+    axios
+      .post('http://localhost:3001/login', {user}, {withCredentials: true})
+      .then(response => {
+        if (response.data.logged_in) {
+          setUsername(response.data.user.username);
+        } else {
+          setLoginError(response.data.error);
+          console.log('not logged in:', response.data.error);
+        }
+      })
+      .catch(error => {
+        console.log('api errors:', error);
+        setLoginError(error);
+      });
   };
+
   const onForgotPasswordPressed = () => {
     console.warn('Forgot Password');
   };
@@ -73,6 +82,7 @@ const SignInScreen: FC = () => {
           },
         }}
       />
+      {loginError != '' && <Text style={{color: 'red'}}>{loginError}</Text>}
 
       <CustomButton
         text={'Sign In'}

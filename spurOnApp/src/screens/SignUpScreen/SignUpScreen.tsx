@@ -2,15 +2,14 @@ import React, {FC, useState} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useForm} from 'react-hook-form';
+import axios from 'axios';
 
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 
-const EMAIL_REGEX =
-  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
 const SignUpScreen: FC = () => {
   const navigation = useNavigation();
+  const [signUpError, setSignUpError] = useState('');
 
   const {
     control,
@@ -22,8 +21,29 @@ const SignUpScreen: FC = () => {
 
   console.log(errors);
 
-  const onSignUpPressed = () => {
-    console.warn('Signed Up');
+  const onSignUpPressed = (user: any) => {
+    const user_create_request = {
+      user: {
+        username: user.username,
+        password: user.password,
+      },
+    };
+    axios
+      .post('http://localhost:3001/users', user_create_request, {
+        withCredentials: true,
+      })
+      .then(response => {
+        if (response.data.status === 'created') {
+          navigation.navigate('SignIn');
+        } else {
+          setSignUpError(response.data.error);
+          console.log('Failed to sign up: ', response.data.error);
+        }
+      })
+      .catch(error => {
+        setSignUpError(error.message);
+        console.log('api errors:', error.toJSON());
+      });
   };
 
   const onTermsOfUsePressed = () => {
@@ -57,7 +77,7 @@ const SignUpScreen: FC = () => {
           },
         }}
       />
-      <CustomInput
+      {/* <CustomInput
         name="email"
         placeholder="Email"
         control={control}
@@ -68,7 +88,7 @@ const SignUpScreen: FC = () => {
             message: 'Must enter a valid email address',
           },
         }}
-      />
+      /> */}
       <CustomInput
         name="password"
         placeholder="Password"
@@ -101,6 +121,7 @@ const SignUpScreen: FC = () => {
         onPress={handleSubmit(onSignUpPressed)}
         type={'PRIMARY'}
       />
+      {signUpError != '' && <Text style={{color: 'red'}}>{signUpError}</Text>}
 
       <Text style={styles.text}>
         By registering, you confirm that you accept our{' '}
