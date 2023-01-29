@@ -38,6 +38,7 @@ const CustomInput: FC<CustomInputProps> = ({
               secureTextEntry={secureTextEntry}
               blurOnSubmit={false}
               onSubmitEditing={() => Keyboard.dismiss()}
+              autoCapitalize="none"
             />
           </View>
           {error && (

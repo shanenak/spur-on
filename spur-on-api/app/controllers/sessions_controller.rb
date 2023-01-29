@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
         else
             render json: {
             status: 401,
-            errors: ['no such user, please try again']
+            error: 'No such user, please try again'
             }
         end
     end

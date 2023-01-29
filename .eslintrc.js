@@ -1,9 +1,6 @@
 module.exports = {
   root: true,
-  extends: [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
   env: {
     browser: true,
     commonjs: true,
@@ -11,11 +8,9 @@ module.exports = {
     jest: true,
     node: true,
   },
-  parser: "@typescript-eslint/parser",
-  plugins: [
-    "@typescript-eslint"
-  ],
-  ignorePatterns: ["node_modules/*", "spurOnApp/node_modules/*"],
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint'],
+  ignorePatterns: ['node_modules/*', 'spurOnApp/node_modules/*'],
   rules: {
     'jsx-a11y/href-no-hash': ['off'],
     'max-len': [
@@ -32,6 +27,7 @@ module.exports = {
         ignoreRegExpLiterals: true,
       },
     ],
-    "no-unsafe-optional-chaining": 'error',
+    'no-unsafe-optional-chaining': 'error',
+    '@typescript-eslint/no-empty-function': 'warn',
   },
 };
