@@ -5,12 +5,12 @@ import axios from 'axios';
 
 import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
-import HomeScreen from '../screens/HomeScreen';
+import HomeNavigation from './HomeNavigation';
 import {CurrentUserContext, defaultUsername} from '../context/UserContext';
 
 const Stack = createNativeStackNavigator();
 
-const Navigation = () => {
+const LoginNavigation = () => {
   const [currentUsername, setCurrentUsername] =
     useState<string>(defaultUsername);
 
@@ -42,7 +42,7 @@ const Navigation = () => {
               <Stack.Screen name="SignUp" component={SignUpScreen} />
             </>
           ) : (
-            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="HomeNavigation" component={HomeNavigation} />
           )}
         </Stack.Navigator>
       </NavigationContainer>
@@ -50,4 +50,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default LoginNavigation;

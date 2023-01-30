@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import Navigation from './src/navigation';
+import LoginNavigation from './src/navigation/LoginNavigation';
 
 const App: FC = () => {
   return (
     <SafeAreaView style={styles.root}>
-      <Navigation />
+      <LoginNavigation />
     </SafeAreaView>
   );
 };
