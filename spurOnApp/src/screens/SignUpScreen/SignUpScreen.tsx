@@ -22,28 +22,17 @@ const SignUpScreen: FC = () => {
   console.log(errors);
 
   const onSignUpPressed = (user: any) => {
-    const user_create_request = {
-      user: {
-        username: user.username,
-        password: user.password,
-      },
-    };
     axios
-      .post('http://localhost:3001/users', user_create_request, {
-        withCredentials: true,
-      })
+      .post('http://localhost:3001/users', {user}, {withCredentials: true})
       .then(response => {
         if (response.data.status === 'created') {
           navigation.navigate('SignIn');
         } else {
-          setSignUpError(response.data.error);
-          console.log('Failed to sign up: ', response.data.error);
+          console.log('api errors: ', response.data.errors);
         }
       })
-      .catch(error => {
-        setSignUpError(error.message);
-        console.log('api errors:', error.toJSON());
-      });
+      .catch(error => console.log('api errors:', error));
+    console.warn('Signed Up');
   };
 
   const onTermsOfUsePressed = () => {

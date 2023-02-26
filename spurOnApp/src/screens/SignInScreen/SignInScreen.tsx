@@ -9,7 +9,11 @@ import {useCurrentUser} from '../../context/UserContext';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 
-const SignInScreen: FC = () => {
+type SignInScreenProps = {
+  setUser: any;
+};
+
+const SignInScreen: FC<SignInScreenProps> = ({setUser}) => {
   const {height} = useWindowDimensions();
   const navigation = useNavigation();
   const {username, setUsername} = useCurrentUser();
@@ -28,16 +32,13 @@ const SignInScreen: FC = () => {
       .post('http://localhost:3001/login', {user}, {withCredentials: true})
       .then(response => {
         if (response.data.logged_in) {
-          setUsername(response.data.user.username);
+          setUser({username: response.data.username});
         } else {
-          setLoginError(response.data.error);
-          console.log('not logged in:', response.data.error);
+          console.log('api errors:', response.data.errors);
         }
       })
-      .catch(error => {
-        console.log('api errors:', error);
-        setLoginError(error);
-      });
+      .catch(error => console.log('api errors:', error));
+    console.log('Sign in:', user);
   };
 
   const onForgotPasswordPressed = () => {

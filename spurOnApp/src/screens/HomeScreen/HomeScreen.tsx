@@ -1,14 +1,15 @@
 import React, {FC} from 'react';
 import {View, Text} from 'react-native';
+import {TUser} from '../../types/types';
 
-import {useCurrentUser} from '../../context/UserContext';
+type HomeScreenProps = {
+  user: TUser;
+};
 
-const HomeScreen: FC = () => {
-  const {username, setUsername} = useCurrentUser();
-
+const HomeScreen: FC<HomeScreenProps> = ({user}) => {
   return (
     <View>
-      <Text>Home! User: {username}</Text>
+      <Text>Home! User: {user.username}</Text>
     </View>
   );
 };
